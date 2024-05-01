@@ -3,5 +3,5 @@ using ViewModel;
 
 Console.WriteLine("Hello, World!");
 var PersonDb = new PersonsDb();
-var result = PersonDb.SelectALL();
+var result = PersonDb.CheckLogin("sdfp2p","123456789");
 Console.WriteLine(result);

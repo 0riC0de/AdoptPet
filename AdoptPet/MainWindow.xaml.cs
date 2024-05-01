@@ -15,22 +15,55 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ViewModel;
+using System.Data.OleDb;
 
 namespace AdoptPet
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        private PersonsDb personsDb = new PersonsDb();
+        private string connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\orioz\OneDrive\מסמכים\AnimalsBase.accdb";
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
+
         private void loginBtn_Click(object sender, RoutedEventArgs e)
         {
+            string username = txtUsername.Text;
+            string password = txtPassword.Password;
 
+            if (string.IsNullOrEmpty(username))
+            {
+                //cange the box color
+                ErrorText.Text = "Username cannot be empty!";
+                return;
+            }
+            if (string.IsNullOrEmpty(password) || password.Length < 8)
+            {
+                //change the box color
+                ErrorText.Text = "Password must be at least 8 characters!";
+                return;
+            }
+            Person loginSuccessful = personsDb.CheckLogin(username, password);
+
+           // using (OleDbConnection conn = new OleDbConnection(connectionString))
+           // {
+            //    conn.Open();
+                if (loginSuccessful != null)
+                {
+                    MessageBox.Show("Login sec!");
+                }
+                else
+                {
+                    MessageBox.Show("Invalid username or password!");
+                }
+
+            //    conn.Close();
+
+          //  }
         }
         private void exitApp(object sender, RoutedEventArgs e)
         {

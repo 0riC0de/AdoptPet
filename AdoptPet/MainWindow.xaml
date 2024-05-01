@@ -41,13 +41,15 @@
                            Text="Log in to your existing account!"/>
 
                 <TextBox Margin="0 50 0 0" x:Name="txtUsername" Width="300" FontSize="18" materialDesign:HintAssist.Hint="Enter Username"
-                         BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}"
+                         BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" 
                          Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
 
                 <PasswordBox Margin="0 20 0 0" x:Name="txtPassword" Width="300" FontSize="18"
                              materialDesign:HintAssist.Hint="Enter Password" BorderThickness="2" 
                              BorderBrush="{DynamicResource MaterialDesignDivider}"
                              Style="{StaticResource MaterialDesignOutlinedPasswordBox}"/>
+
+                <TextBlock Margin="0 15 0 0" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Center" x:Name="ErrorText"/>
 
                 <Button Margin="10 20 10 0 " x:Name="loginBtn" Style="{StaticResource MaterialDesignFlatMidBgButton}"
                         materialDesign:ButtonAssist.CornerRadius="10" FontSize="18" Content="LOG IN" Click="loginBtn_Click" Background="#FF020202"/>

@@ -19,6 +19,12 @@ namespace ViewModel
             PersonList lst = Select(query);
             return lst;
         }
+        public Person CheckLogin(string userName, string password)
+        {
+            string query = $"SELECT * from {_tableName} where UserName = '{userName}' and PassWord = '{password}'";
+            PersonList lst = Select(query);
+            return lst.FirstOrDefault();
+        }
 
         public Person SelectByID(int id)
         {
@@ -38,6 +44,7 @@ namespace ViewModel
                 Person p;
                 while (reader.Read())
                 {
+
                     p = new Person();
                     p.Id = reader.GetInt32(0);
                     p.Name = reader.GetString(1);

@@ -11,15 +11,16 @@ namespace ViewModel
 {
     public class BaseDB
     {
-        protected string _connString;
+
         protected SqlConnection _connection;
         protected SqlCommand _command;
         protected SqlDataReader _reader;
         protected string _tableName;
+        protected readonly string _connString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\orioz\OneDrive\מסמכים\AnimalsBase.accdb";
+
         public BaseDB(string tableName)
         {
-            _tableName = tableName;
-            _connString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\orioz\OneDrive\מסמכים\AnimalsBase.accdb";
+            _tableName = tableName;       
         }
     }
 }
