@@ -61,8 +61,48 @@ namespace ViewModel
                 return list;
             }
         }
+        public bool InsertPerson(Person p)
+        {
+            try
+            {
+                string query = $"insert into {_tableName} (Name,SurName,Email,IsAdmin,[PassWord],Phone,AddressID,UserName" +
+                    $") values (@Name,@SurName,@Email,@IsAdmin,@PassWord,@Phone,@AddressID,@UserName)";
 
 
-       
+                using (OleDbConnection connection = new OleDbConnection(_connString))
+                {
+                    connection.Open();
+                    OleDbCommand command = new OleDbCommand(query, connection);
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.AddWithValue("@Name", p.Name);
+                    command.Parameters.AddWithValue("@SurName", p.SurName);
+                    command.Parameters.AddWithValue("@Email", p.Email);
+                    command.Parameters.AddWithValue("@IsAdmin", p.IsAdmin);
+                    command.Parameters.AddWithValue("@PassWord", p.PassWord);
+                    command.Parameters.AddWithValue("@Phone", p.Phone);
+                    //insert adress get new id @@identity
+                    //adress db = new adressdb();
+                    //ind newId = db.insert(p.Adress);
+                    command.Parameters.AddWithValue("@AddressID",1); //new id
+                    command.Parameters.AddWithValue("@UserName", p.UserName);
+
+
+                    int result = command.ExecuteNonQuery();
+                    if (result == 1)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                return false;
+            }
+
+        }
     }
+
 }

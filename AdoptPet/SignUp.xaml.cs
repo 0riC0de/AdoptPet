@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,7 +12,10 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ViewModel;
+using System.Data.OleDb;
 
 namespace AdoptPet
 {
@@ -37,15 +41,18 @@ namespace AdoptPet
 
         private void btnEnterSignUp(object sender, RoutedEventArgs e)
         {
-            string conStr = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\orioz\OneDrive\מסמכים\AnimalsBase.accdb";
-            SqlConnection sqlcon = new SqlConnection(conStr);
-
-            string checkUsernameQuery = $"SELECT COUNT(*) FROM tblUsers WHERE userName = '";
-            SqlCommand checkUsernameCmd = new SqlCommand(checkUsernameQuery, sqlcon);
-
-            sqlcon.Open();
-            int existingUserCount = (int)checkUsernameCmd.ExecuteScalar();
-            sqlcon.Close();
+            Person person = new Person();
+            person.Name = txtName.Text;
+            person.UserName = txtUsername.Text;
+            person.Email = txtEmail.Text;
+            person.SurName = txtSurName.Text;
+            person.PassWord = txtPassword.Password;
+            person.IsAdmin = false;
+            person.Phone = Convert.ToInt32(txtPhone.Text);
+            //person.adrees = new adress(...data);
+            PersonsDb db = new PersonsDb();
+            db.InsertPerson(person);
+            MessageBox.Show("Name :" + txtName.Text + "SurName :" + txtSurName.Text + "UserName :" + txtUsername.Text);
         }
 
         private void LogInAcc_Click(object sender, RoutedEventArgs e)

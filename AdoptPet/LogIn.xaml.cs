@@ -37,33 +37,28 @@ namespace AdoptPet
 
             if (string.IsNullOrEmpty(username))
             {
-                //cange the box color
                 ErrorText.Text = "Username cannot be empty!";
                 return;
             }
             if (string.IsNullOrEmpty(password) || password.Length < 8)
             {
-                //change the box color
+
                 ErrorText.Text = "Password must be at least 8 characters!";
                 return;
             }
             Person loginSuccessful = personsDb.CheckLogin(username, password);
+            AppContext.Person = loginSuccessful;
 
-           // using (OleDbConnection conn = new OleDbConnection(connectionString))
-           // {
-            //    conn.Open();
-                if (loginSuccessful != null)
-                {
-                    MessageBox.Show("Login sec!");
-                }
-                else
-                {
-                    MessageBox.Show("Invalid username or password!");
-                }
+            //TODO navigate the user to the main page
 
-            //    conn.Close();
-
-          //  }
+            if (loginSuccessful != null)
+            {
+                MessageBox.Show("Login sec!");
+            }
+            else
+            {
+                MessageBox.Show("Invalid username or password!");
+            }
         }
         private void exitApp(object sender, RoutedEventArgs e)
         {
